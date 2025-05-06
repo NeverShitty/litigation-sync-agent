@@ -1,0 +1,13 @@
+{
+  "name": "Litigation Sync Agent",
+  "description": "Push litigation-related entries into Notion from Custom GPT. Supports motions, contradictions, and filings via structured schema.",
+  "version": "1.0.0",
+  "author": "Nick Bianchi",
+  "license": "MIT",
+  "created": "2025-05-06",
+  "custom_gpt": {
+    "actions": "litigation-sync-gpt-bundle/actions_validated_customgpt.json",
+    "functions": "litigation-sync-gpt-bundle/function_full_customgpt.json",
+    "modules": "litigation-sync-gpt-bundle/gpt_module_litigation_sync.json"
+  }
+}

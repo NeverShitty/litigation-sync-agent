@@ -1,1 +1,269 @@
-{}
+{
+  "functions": [
+    {
+      "name": "createNotionCaseEntry",
+      "description": "Push a structured litigation item to Notion with Title, Type, Entity, Claim, and Strategy Notes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "object",
+            "properties": {
+              "database_id": {
+                "type": "string",
+                "description": "The Notion database ID (from {{secrets.NOTION_DB_ID}})"
+              }
+            },
+            "required": [
+              "database_id"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              },
+              "Type": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Entity": {
+                "type": "object",
+                "properties": {
+                  "multi_select": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "multi_select"
+                ]
+              },
+              "Claim": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              },
+              "Weight": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Status": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Notes": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              }
+            },
+            "required": [
+              "Name",
+              "Type",
+              "Entity",
+              "Claim",
+              "Weight",
+              "Status",
+              "Notes"
+            ]
+          }
+        },
+        "required": [
+          "parent",
+          "properties"
+        ]
+      }
+    },
+    {
+      "name": "resolveContradictions",
+      "description": "Analyze a list of filings or claims for internal logical conflicts and flag contradictions.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "statements": {
+            "type": "array",
+            "description": "List of legal statements or filings to evaluate",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "statements"
+        ]
+      }
+    },
+    {
+      "name": "summarizeLitigationTimeline",
+      "description": "Build a chronological timeline of filings, motions, and evidence with entity mapping.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "entity": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "date",
+                "title",
+                "type"
+              ]
+            }
+          }
+        },
+        "required": [
+          "entries"
+        ]
+      }
+    }
+  ]
+}

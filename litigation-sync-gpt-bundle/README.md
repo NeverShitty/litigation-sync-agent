@@ -1,50 +1,50 @@
 # 🧠 Litigation Sync GPT Bundle
 
-This repository contains all the components required to deploy a Custom GPT agent that syncs structured litigation data into Notion databases.
+This repository directory contains a plug-and-play Custom GPT bundle for syncing litigation events, filings, and contradictions into Notion.
 
-## 📦 Components
+## 📦 Contents
 
-- `manifest.json` – Describes the GPT agent's name, capabilities, OpenAPI spec, and secrets.
-- `actions_validated_customgpt.json` – OpenAPI schema for the Notion API POST /pages endpoint.
-- `function_full_customgpt.json` – GPT function definition to map fields like Name, Claim, Entity, etc.
-- `gpt_module_litigation_sync.json` – Optional module with extended capabilities: contradiction resolution, timeline generation, etc.
+| File                               | Description                                                                 |
+|------------------------------------|-----------------------------------------------------------------------------|
+| `actions_validated_customgpt.json` | Full OpenAPI schema for Custom GPT Action (`createNotionCaseEntry`)         |
+| `function_full_customgpt.json`     | GPT function definitions using the Notion-compatible nested format          |
+| `gpt_module_litigation_sync.json`  | Bundle of GPT-callable functions including contradiction and timeline tools |
 
-## 🔑 Required GPT Secrets
+## 🚀 How to Use
 
-- `NOTION_TOKEN` – Your Notion integration token.
-- `NOTION_DB_ID` – The target Notion database ID.
+1. **OpenAI Custom GPT Setup**
+   - Paste the contents of `actions_validated_customgpt.json` into the **Actions** tab
+   - Paste the contents of `function_full_customgpt.json` into the **Functions** tab
+   - Add secrets:
+     - `NOTION_TOKEN` — your Notion integration token (starts with `secret_`)
+     - `NOTION_DB_ID` — the database ID from your Notion tracker
 
-## 🚀 Installation
+2. **Instructions for GPT**
+   Paste this in your Instructions:
 
-1. In your [OpenAI Custom GPT builder](https://chat.openai.com/gpts/editor), upload:
+   ```text
+   When a message includes #notion-sync or references litigation filings:
+   - Format the entry with Name, Type, Entity, Claim, Weight, Status, and Notes.
+   - Trigger `createNotionCaseEntry` with the formatted Notion API payload.
+   ```
 
-   - `manifest.json`
-   - `actions_validated_customgpt.json` under the "Actions" tab
-   - `function_full_customgpt.json` under the "Functions" tab
+3. **Triggers**
+   - `#notion-sync` — Push any filing/motion/statement into Notion
+   - `#check-contradiction` — Run logic comparison on past statements
+   - `#summarize-timeline` — Generate an event timeline
 
-2. Paste your Notion secrets into the GPT’s "Secrets" section.
+## 🔐 API Integration Notes
 
-3. Tag your content with `#notion-sync` to automatically trigger Notion updates.
+- Endpoint: `https://api.notion.com/v1/pages`
+- Auth Header: `Authorization: Bearer {{secrets.NOTION_TOKEN}}`
+- Pass the DB ID via: `{{secrets.NOTION_DB_ID}}`
 
-## 🛠 Example Payload (for `createNotionCaseEntry`)
+## 🧠 Future Extensions
 
-```json
-{
-  "parent": { "database_id": "{{secrets.NOTION_DB_ID}}" },
-  "properties": {
-    "Name": { "title": [{ "text": { "content": "Motion to Compel Arbitration" } }] },
-    "Type": { "select": { "name": "Motion" } },
-    "Entity": { "multi_select": [{ "name": "ARIBIA LLC" }] },
-    "Claim": { "rich_text": [{ "text": { "content": "Enforce clause in LLC agreement" } }] },
-    "Weight": { "select": { "name": "Strong" } },
-    "Status": { "select": { "name": "Draft" } },
-    "Notes": { "rich_text": [{ "text": { "content": "References Section 8.5 of the agreement" } }] }
-  }
-}
-```
+- OCR + Email evidence parsing (in progress)
+- Clause contradiction detector
+- Entity-based timeline builder
 
-## 🙋‍♂️ Contact
+---
 
-Built by [Nick Bianchi](https://github.com/NeverShitty)
-
-Use responsibly. Sync ruthlessly.
+© 2025 NeverShitty Systems. Licensed for personal or internal legal research.

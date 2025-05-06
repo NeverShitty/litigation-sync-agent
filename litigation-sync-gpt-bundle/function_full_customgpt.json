@@ -1,7 +1,7 @@
 {
   "functions": [
     {
-      "name": "createNotionPage",
+      "name": "createNotionCaseEntry",
       "description": "Create a structured litigation entry in Notion using title, type, claim, entity, and analysis.",
       "parameters": {
         "type": "object",

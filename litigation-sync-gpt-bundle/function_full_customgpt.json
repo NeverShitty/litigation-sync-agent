@@ -1,0 +1,212 @@
+{
+  "functions": [
+    {
+      "name": "createNotionPage",
+      "description": "Create a structured litigation entry in Notion using title, type, claim, entity, and analysis.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "object",
+            "properties": {
+              "database_id": {
+                "type": "string",
+                "description": "The Notion database ID (use secrets.NOTION_DB_ID)"
+              }
+            },
+            "required": [
+              "database_id"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              },
+              "Type": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Entity": {
+                "type": "object",
+                "properties": {
+                  "multi_select": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "multi_select"
+                ]
+              },
+              "Claim": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              },
+              "Weight": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Status": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Notes": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              }
+            },
+            "required": [
+              "Name",
+              "Type",
+              "Entity",
+              "Claim",
+              "Weight",
+              "Status",
+              "Notes"
+            ]
+          }
+        },
+        "required": [
+          "parent",
+          "properties"
+        ]
+      }
+    }
+  ]
+}

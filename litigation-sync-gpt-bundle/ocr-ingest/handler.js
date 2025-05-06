@@ -1,0 +1,1 @@
+export default function handleOCRUpload(file) { console.log("Parsing OCR..."); }

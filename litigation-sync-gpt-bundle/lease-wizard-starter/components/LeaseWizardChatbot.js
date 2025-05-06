@@ -1,0 +1,1 @@
+export function LeaseWizardChatbot() { return <div>Chatbot</div>; }

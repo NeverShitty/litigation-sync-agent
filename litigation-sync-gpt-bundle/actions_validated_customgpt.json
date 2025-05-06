@@ -1,0 +1,243 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Notion Case Entry API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.notion.com/v1"
+    }
+  ],
+  "paths": {
+    "/pages": {
+      "post": {
+        "operationId": "createNotionCaseEntry",
+        "summary": "Create a litigation entry in Notion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Entry created"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreatePageRequest": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "object",
+            "properties": {
+              "database_id": {
+                "type": "string",
+                "description": "Your Notion database ID (passed from GPT secret)"
+              }
+            },
+            "required": [
+              "database_id"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              },
+              "Type": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Entity": {
+                "type": "object",
+                "properties": {
+                  "multi_select": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "multi_select"
+                ]
+              },
+              "Claim": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              },
+              "Weight": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Status": {
+                "type": "object",
+                "properties": {
+                  "select": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "select"
+                ]
+              },
+              "Notes": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              }
+            },
+            "required": [
+              "Name",
+              "Type",
+              "Entity",
+              "Claim",
+              "Weight",
+              "Status",
+              "Notes"
+            ]
+          }
+        },
+        "required": [
+          "parent",
+          "properties"
+        ]
+      }
+    }
+  }
+}
